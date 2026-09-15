@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HeadShot - Cover Shooter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Main Menu -->
+        <div id="mainMenu" class="screen active">
+            <div class="screen-content">
+                <h1 class="game-title">HEAD<span class="accent">SHOT</span></h1>
+                <p class="subtitle">2D Cover Shooter</p>
+                <div class="menu-buttons">
+                    <button class="btn btn-primary" id="btnStart">START GAME</button>
+                    <button class="btn" id="btnLevels">LEVEL SELECT</button>
+                    <button class="btn" id="btnLoadout">LOADOUT</button>
+                    <button class="btn" id="btnHowTo">HOW TO PLAY</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level Select -->
+        <div id="levelSelect" class="screen">
+            <div class="screen-content">
+                <h2>SELECT MISSION</h2>
+                <div id="levelGrid" class="level-grid"></div>
+                <button class="btn btn-back" id="btnBackLevels">BACK</button>
+            </div>
+        </div>
+
+        <!-- How to Play -->
+        <div id="howToPlay" class="screen">
+            <div class="screen-content modal-box">
+                <h2>HOW TO PLAY</h2>
+                <div class="how-to-content">
+                    <section>
+                        <h3>PC Controls</h3>
+                        <p><kbd>A</kbd> / <kbd>D</kbd> or <kbd>&larr;</kbd> / <kbd>&rarr;</kbd> &mdash; Move between covers</p>
+                        <p><kbd>Mouse</kbd> &mdash; Aim &nbsp; <kbd>Left Click</kbd> &mdash; Shoot (hold to peek)</p>
+                        <p><kbd>R</kbd> &mdash; Reload &nbsp; <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> / <kbd>Scroll</kbd> &mdash; Switch weapon</p>
+                    </section>
+                    <section>
+                        <h3>Mobile Controls</h3>
+                        <p>Use on-screen buttons for movement, firing, reloading, and weapon switching.</p>
+                    </section>
+                    <section>
+                        <h3>Objective</h3>
+                        <p>Eliminate all enemies from behind cover. Peek to shoot but watch your health! Complete mission objectives for up to 3 stars.</p>
+                    </section>
+                    <section>
+                        <h3>Tips</h3>
+                        <ul>
+                            <li>Covers can be destroyed &mdash; relocate when needed</li>
+                            <li>Shoot incoming missiles to destroy them</li>
+                            <li>Snipers show a red laser before firing &mdash; take cover!</li>
+                            <li>Bosses are vulnerable when launching missiles</li>
+                        </ul>
+                    </section>
+                </div>
+                <button class="btn btn-back" id="btnBackHowTo">BACK</button>
+            </div>
+        </div>
+
+        <!-- Loadout -->
+        <div id="loadout" class="screen">
+            <div class="screen-content modal-box">
+                <h2>WEAPON LOADOUT</h2>
+                <div id="weaponList" class="weapon-list"></div>
+                <button class="btn btn-back" id="btnBackLoadout">BACK</button>
+            </div>
+        </div>
+
+        <!-- HUD -->
+        <div id="hud" class="hud hidden">
+            <div class="hud-top">
+                <div class="hud-left">
+                    <div class="bar-wrap">
+                        <div class="bar health-bar"><div id="healthFill" class="bar-fill"></div></div>
+                        <span id="healthText" class="bar-label">100 HP</span>
+                    </div>
+                    <div class="bar-wrap">
+                        <div class="bar cover-bar"><div id="coverFill" class="bar-fill"></div></div>
+                        <span id="coverText" class="bar-label">COVER 200</span>
+                    </div>
+                </div>
+                <div class="hud-center">
+                    <div id="timerDisplay" class="timer">2:00</div>
+                </div>
+                <div class="hud-right">
+                    <span id="ammoCount" class="ammo-count">30 / 30</span>
+                    <span id="weaponName" class="weapon-name">Assault Rifle</span>
+                </div>
+            </div>
+            <div id="missionTracker" class="mission-tracker"></div>
+        </div>
+
+        <!-- Touch Controls -->
+        <div id="touchControls" class="touch-controls hidden">
+            <div class="touch-left">
+                <button id="btnLeft" class="touch-btn dpad-btn">&laquo;</button>
+                <button id="btnRight" class="touch-btn dpad-btn">&raquo;</button>
+            </div>
+            <div class="touch-right">
+                <div class="touch-top-row">
+                    <button id="btnReload" class="touch-btn sm-btn">R</button>
+                    <button class="touch-btn wpn-btn active" data-weapon="0">1</button>
+                    <button class="touch-btn wpn-btn" data-weapon="1">2</button>
+                    <button class="touch-btn wpn-btn" data-weapon="2">3</button>
+                </div>
+                <button id="btnFire" class="touch-btn fire-btn">FIRE</button>
+            </div>
+        </div>
+
+        <!-- Victory -->
+        <div id="victoryScreen" class="screen">
+            <div class="screen-content modal-box">
+                <h2 class="victory-title">MISSION COMPLETE</h2>
+                <div id="victoryStars" class="stars-display"></div>
+                <div id="victoryStats" class="victory-stats"></div>
+                <div class="menu-buttons">
+                    <button class="btn btn-primary" id="btnNextLevel">NEXT LEVEL</button>
+                    <button class="btn" id="btnMenuVictory">MAIN MENU</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Over -->
+        <div id="gameOverScreen" class="screen">
+            <div class="screen-content modal-box">
+                <h2 class="gameover-title">MISSION FAILED</h2>
+                <div class="menu-buttons">
+                    <button class="btn btn-primary" id="btnRestart">RESTART LEVEL</button>
+                    <button class="btn" id="btnMenuGameOver">MAIN MENU</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
